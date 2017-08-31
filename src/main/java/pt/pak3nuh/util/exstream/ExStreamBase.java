@@ -19,7 +19,7 @@ class ExStreamBase<T> implements Stream<T> {
         return delegate;
     }
 
-    public Stream<T> getStream() {
+    public Stream<T> toStream() {
         return this;
     }
 

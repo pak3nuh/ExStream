@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.stream.Stream;
 
+import static org.junit.Assert.assertEquals;
+
 public class ExStreamTest {
 
     @Test(expected = Exception.class)
@@ -36,4 +38,42 @@ public class ExStreamTest {
                 })
                 .exFindFirst().isPresent();
     }
+
+    @Test(expected = ExStreamRuntimeException.class)
+    public void testToStream() throws Exception {
+        ExStreamBuilder.of(Stream.of(1,2,3))
+                .exMap(i -> {
+                    if (i == 1) {
+                        throw new Exception();
+                    }
+                    return i;
+                })
+                .toStream()
+                .findFirst();
+    }
+
+    @Test(expected = ExStreamException.class)
+    public void testParallel() throws Exception {
+        int badNumber = 123_456;
+        int maxSize = 100_000_000;
+        int value = ExStreamBuilder
+                .of(Stream.generate(() -> 1).parallel())
+                .exLimit(maxSize)
+                .exReduce((i1, i2) -> {
+                    if (i1 == badNumber || i2 == badNumber) {
+                        throw new Exception("Bad number");
+                    }
+                    return i1 + i2;
+                }).get();
+        assertEquals(value, maxSize);
+    }
+
+    @Test
+    public void useJavaFunctions() throws Exception {
+        ExStreamBuilder.of(Stream.of(1))
+                .exMap(this::identity)
+                .exFindFirst().get();
+    }
+
+    private <T> T identity(T t){return t;}
 }

@@ -1,5 +1,6 @@
 package pt.pak3nuh.util.exstream;
 
+import pt.pak3nuh.util.exstream.function.ExBinaryOperator;
 import pt.pak3nuh.util.exstream.function.ExConsumer;
 import pt.pak3nuh.util.exstream.function.ExFunction;
 import pt.pak3nuh.util.exstream.function.ExPredicate;
@@ -34,10 +35,12 @@ public interface ExStream<T> {
 
     Optional<T> exFindFirst() throws ExStreamException;
 
+    Optional<T> exReduce(ExBinaryOperator<T> accumulator) throws ExStreamException;
+
     /**
      * Returns the current instance as plain {@link Stream}.
      * All <a href="package-summary.html#StreamOps">terminal
      * operations</a> of the returning object can throw {@link ExStreamRuntimeException}.
      */
-    Stream<T> getStream();
+    Stream<T> toStream();
 }

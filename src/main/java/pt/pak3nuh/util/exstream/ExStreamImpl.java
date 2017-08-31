@@ -1,5 +1,6 @@
 package pt.pak3nuh.util.exstream;
 
+import pt.pak3nuh.util.exstream.function.ExBinaryOperator;
 import pt.pak3nuh.util.exstream.function.ExConsumer;
 import pt.pak3nuh.util.exstream.function.ExFunction;
 import pt.pak3nuh.util.exstream.function.ExPredicate;
@@ -75,6 +76,11 @@ public class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
     @Override
     public Optional<T> exFindFirst() throws ExStreamException {
         return terminal(() -> getDelegate().findFirst());
+    }
+
+    @Override
+    public Optional<T> exReduce(ExBinaryOperator<T> accumulator) throws ExStreamException {
+        return terminal(() -> getDelegate().reduce(toJavaFunc(accumulator)));
     }
 
     private static <T> T terminal(Supplier<T> supplier) throws ExStreamException {

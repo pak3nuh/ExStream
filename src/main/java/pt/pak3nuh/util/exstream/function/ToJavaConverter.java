@@ -2,6 +2,7 @@ package pt.pak3nuh.util.exstream.function;
 
 import pt.pak3nuh.util.exstream.ExStreamRuntimeException;
 
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -35,6 +36,16 @@ public class ToJavaConverter {
         return t -> {
             try {
                 func.consume(t);
+            } catch (Exception e) {
+                throw getException(e);
+            }
+        };
+    }
+
+    public static <T> BinaryOperator<T> toJavaFunc(ExBinaryOperator<T> func) throws ExStreamRuntimeException {
+        return (t1, t2) -> {
+            try {
+                return func.apply(t1, t2);
             } catch (Exception e) {
                 throw getException(e);
             }
