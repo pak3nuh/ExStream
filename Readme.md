@@ -21,6 +21,9 @@ Good old `Collectors` work
 List<T> list = exStream.exCollect(Collectors.toList())
 ````
 
+It's possible to obtain a Stream instance with `exStream.toStream()`. 
+This instance can throw `ExStreamRuntimeException` on any terminal operation.
+
 ###Caveats
 Because every Stream method must be wrapped in a `try catch` block with a runtime exception this will generate
 some intermediate objects. Although this objects are very simple they will produce some overhead.
