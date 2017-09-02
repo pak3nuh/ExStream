@@ -1,4 +1,4 @@
-package pt.pak3nuh.util.exstream;
+package pt.pak3nuh.stream.util;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package pt.pak3nuh.util.exstream;
+package pt.pak3nuh.stream.util;
 
 public class ExStreamRuntimeException extends RuntimeException {
 

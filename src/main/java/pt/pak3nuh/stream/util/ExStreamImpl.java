@@ -1,16 +1,16 @@
-package pt.pak3nuh.util.exstream;
+package pt.pak3nuh.stream.util;
 
-import pt.pak3nuh.util.exstream.function.ExBinaryOperator;
-import pt.pak3nuh.util.exstream.function.ExConsumer;
-import pt.pak3nuh.util.exstream.function.ExFunction;
-import pt.pak3nuh.util.exstream.function.ExPredicate;
+import pt.pak3nuh.stream.util.function.ExBinaryOperator;
+import pt.pak3nuh.stream.util.function.ExConsumer;
+import pt.pak3nuh.stream.util.function.ExFunction;
+import pt.pak3nuh.stream.util.function.ExPredicate;
 
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 
-import static pt.pak3nuh.util.exstream.function.ToJavaConverter.toJavaFunc;
+import static pt.pak3nuh.stream.util.function.ToJavaConverter.toJavaFunc;
 
 public class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
 

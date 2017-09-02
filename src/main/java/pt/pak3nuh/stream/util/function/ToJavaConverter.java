@@ -1,6 +1,6 @@
-package pt.pak3nuh.util.exstream.function;
+package pt.pak3nuh.stream.util.function;
 
-import pt.pak3nuh.util.exstream.ExStreamRuntimeException;
+import pt.pak3nuh.stream.util.ExStreamRuntimeException;
 
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
