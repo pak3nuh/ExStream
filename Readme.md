@@ -1,7 +1,7 @@
 ## ExStream
 A wrapper interface for Stream with exception support.
 
-###Usage
+### Usage
 Given some `Stream<T>` named `source`
 ```java
 ExStream<T> exStream = ExStreamBuilder.of(source)
@@ -24,6 +24,6 @@ List<T> list = exStream.exCollect(Collectors.toList())
 It's possible to obtain a Stream instance with `exStream.toStream()`. 
 This instance can throw `ExStreamRuntimeException` on any terminal operation.
 
-###Caveats
+### Caveats
 Because every Stream method must be wrapped in a `try catch` block with a runtime exception this will generate
 some intermediate objects. Although this objects are very simple they will produce some overhead.
