@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2017 (C) CORIANT
+  ~ The reproduction, transmission or use of this document or its contents
+  ~ is not permitted without express written authorization.
+  ~ Offenders will be liable for damages.
+  ~ All rights, including rights created by patent grant or
+  ~ registration of a utility model or design, are reserved.
+  ~ Modifications made to this document are restricted to authorized personnel
+  ~ only.
+  ~ Technical specifications and features are binding only when specifically
+  ~ and expressly agreed upon in a written contract.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>pt.pak3nuh.util</groupId>
+    <artifactId>exstream</artifactId>
+    <name>Exceptional Streams</name>
+    <version>0.9.0</version>
+    <packaging>jar</packaging>
+
+    <inceptionYear>2017</inceptionYear>
+
+    <description>Wrapper for Stream interface that can handle throwing code</description>
+    <developers>
+        <developer>
+            <name>pak3nuh</name>
+            <email>nuno.pik@gmail.com</email>
+        </developer>
+    </developers>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>
