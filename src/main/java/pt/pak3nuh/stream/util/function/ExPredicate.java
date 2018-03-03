@@ -1,12 +1,14 @@
 package pt.pak3nuh.stream.util.function;
 
+import java.util.function.Predicate;
+
 /**
  * Exceptional predicate of type {@code T}
  * @param <T> the type of the input to the predicate
  * @see java.util.function.Predicate
  */
 @FunctionalInterface
-public interface ExPredicate<T> {
+public interface ExPredicate<T> extends InterfaceAdapter<Predicate<T>> {
     /**
      * Evaluates this predicate on the given argument.
      *
@@ -15,4 +17,15 @@ public interface ExPredicate<T> {
      * otherwise {@code false}
      */
     boolean test(T t) throws Exception;
+
+    @Override
+    default Predicate<T> toJava() {
+        return t -> {
+            try {
+                return test(t);
+            } catch (Exception e) {
+                throw getException(e);
+            }
+        };
+    }
 }

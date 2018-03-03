@@ -10,8 +10,6 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 
-import static pt.pak3nuh.stream.util.ToJavaConverter.toJavaFunc;
-
 final class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
 
     ExStreamImpl(Stream<T> delegate) {
@@ -20,12 +18,12 @@ final class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
 
     @Override
     public ExStream<T> exFilter(ExPredicate<T> predicate) {
-        return new ExStreamImpl<>(getDelegate().filter(toJavaFunc(predicate)));
+        return new ExStreamImpl<>(getDelegate().filter(predicate.toJava()));
     }
 
     @Override
     public <R> ExStream<R> exMap(ExFunction<T,R> mapper) {
-        return new ExStreamImpl<>(getDelegate().map(toJavaFunc(mapper)));
+        return new ExStreamImpl<>(getDelegate().map(mapper.toJava()));
     }
 
     @Override
@@ -35,17 +33,17 @@ final class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
 
     @Override
     public <R> ExStream<R> exFlatMap(ExFunction<? super T, ? extends Stream<? extends R>> mapper) {
-        return new ExStreamImpl<>(getDelegate().flatMap(toJavaFunc(mapper)));
+        return new ExStreamImpl<>(getDelegate().flatMap(mapper.toJava()));
     }
 
     @Override
     public void exForEach(ExConsumer<? super T> action) throws ExStreamException{
-        terminal(() -> getDelegate().forEach(toJavaFunc(action)));
+        terminal(() -> getDelegate().forEach(action.toJava()));
     }
 
     @Override
     public ExStream<T> exPeek(ExConsumer<? super T> action) {
-        return new ExStreamImpl<>(getDelegate().peek(toJavaFunc(action)));
+        return new ExStreamImpl<>(getDelegate().peek(action.toJava()));
     }
 
     @Override
@@ -65,12 +63,12 @@ final class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
 
     @Override
     public boolean exAnyMatch(ExPredicate<? super T> predicate) throws ExStreamException {
-        return terminal(() -> getDelegate().anyMatch(toJavaFunc(predicate)));
+        return terminal(() -> getDelegate().anyMatch(predicate.toJava()));
     }
 
     @Override
     public boolean exAllMatch(ExPredicate<? super T> predicate) throws ExStreamException {
-        return terminal(() -> getDelegate().allMatch(toJavaFunc(predicate)));
+        return terminal(() -> getDelegate().allMatch(predicate.toJava()));
     }
 
     @Override
@@ -80,7 +78,7 @@ final class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
 
     @Override
     public Optional<T> exReduce(ExBinaryOperator<T> accumulator) throws ExStreamException {
-        return terminal(() -> getDelegate().reduce(toJavaFunc(accumulator)));
+        return terminal(() -> getDelegate().reduce(accumulator.toJava()));
     }
 
     private static <T> T terminal(Supplier<T> supplier) throws ExStreamException {
