@@ -13,6 +13,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 
+/**
+ * A wrapper interface for {@link Stream} that can accept intermediate functions that throw exceptions.
+ * @param <T> the type of the stream elements
+ */
 public interface ExStream<T> {
 
     /**

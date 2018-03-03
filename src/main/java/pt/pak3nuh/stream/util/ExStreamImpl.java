@@ -10,11 +10,11 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 
-import static pt.pak3nuh.stream.util.function.ToJavaConverter.toJavaFunc;
+import static pt.pak3nuh.stream.util.ToJavaConverter.toJavaFunc;
 
 public class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
 
-    public ExStreamImpl(Stream<T> delegate) {
+    ExStreamImpl(Stream<T> delegate) {
         super(delegate);
     }
 

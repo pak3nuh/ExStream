@@ -1,18 +1,21 @@
-package pt.pak3nuh.stream.util.function;
+package pt.pak3nuh.stream.util;
 
-import pt.pak3nuh.stream.util.ExStreamRuntimeException;
+import pt.pak3nuh.stream.util.function.ExBinaryOperator;
+import pt.pak3nuh.stream.util.function.ExConsumer;
+import pt.pak3nuh.stream.util.function.ExFunction;
+import pt.pak3nuh.stream.util.function.ExPredicate;
 
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class ToJavaConverter {
+final class ToJavaConverter {
 
     private ToJavaConverter() {
     }
 
-    public static <T,R> Function<T,R> toJavaFunc(ExFunction<? super T,? extends R> func) throws ExStreamRuntimeException {
+    static <T,R> Function<T,R> toJavaFunc(ExFunction<? super T,? extends R> func) throws ExStreamRuntimeException {
         return t -> {
             try {
                 return func.apply(t);
@@ -22,7 +25,7 @@ public class ToJavaConverter {
         };
     }
 
-    public static <T> Predicate<T> toJavaFunc(ExPredicate<? super T> func) throws ExStreamRuntimeException {
+    static <T> Predicate<T> toJavaFunc(ExPredicate<? super T> func) throws ExStreamRuntimeException {
         return t -> {
             try {
                 return func.test(t);
@@ -32,17 +35,17 @@ public class ToJavaConverter {
         };
     }
 
-    public static <T> Consumer<T> toJavaFunc(ExConsumer<? super T> func) throws ExStreamRuntimeException {
+    static <T> Consumer<T> toJavaFunc(ExConsumer<? super T> func) throws ExStreamRuntimeException {
         return t -> {
             try {
-                func.consume(t);
+                func.accept(t);
             } catch (Exception e) {
                 throw getException(e);
             }
         };
     }
 
-    public static <T> BinaryOperator<T> toJavaFunc(ExBinaryOperator<T> func) throws ExStreamRuntimeException {
+    static <T> BinaryOperator<T> toJavaFunc(ExBinaryOperator<T> func) throws ExStreamRuntimeException {
         return (t1, t2) -> {
             try {
                 return func.apply(t1, t2);
