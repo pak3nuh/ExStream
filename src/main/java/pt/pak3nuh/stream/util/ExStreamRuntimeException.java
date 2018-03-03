@@ -1,6 +1,9 @@
 package pt.pak3nuh.stream.util;
 
-public class ExStreamRuntimeException extends RuntimeException {
+/**
+ * Exception used under the hood to hide checked exceptions.
+ */
+public final class ExStreamRuntimeException extends RuntimeException {
 
     public ExStreamRuntimeException(Exception cause) {
         super(cause);

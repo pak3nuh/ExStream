@@ -15,6 +15,8 @@ import java.util.stream.Stream;
 
 /**
  * A wrapper interface for {@link Stream} that can accept intermediate functions that throw exceptions.
+ * <br/>
+ * This interface holds some of the stream methods and will be added more in time.
  * @param <T> the type of the stream elements
  */
 public interface ExStream<T> {

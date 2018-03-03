@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 import static pt.pak3nuh.stream.util.ToJavaConverter.toJavaFunc;
 
-public class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
+final class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
 
     ExStreamImpl(Stream<T> delegate) {
         super(delegate);

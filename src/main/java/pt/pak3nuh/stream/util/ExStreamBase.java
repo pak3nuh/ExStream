@@ -11,11 +11,11 @@ class ExStreamBase<T> implements Stream<T> {
 
     private final Stream<T> delegate;
 
-    public ExStreamBase(Stream<T> delegate) {
+    ExStreamBase(Stream<T> delegate) {
         this.delegate = delegate;
     }
 
-    protected Stream<T> getDelegate() {
+    Stream<T> getDelegate() {
         return delegate;
     }
 
