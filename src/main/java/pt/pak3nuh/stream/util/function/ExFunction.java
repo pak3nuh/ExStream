@@ -9,23 +9,22 @@ import java.util.function.Function;
  * @see java.util.function.Function
  */
 @FunctionalInterface
-public interface ExFunction<T,R> extends InterfaceAdapter<Function<T,R>> {
+public interface ExFunction<T,R> extends Function<T,R>, ExceptionalFunction {
     /**
      * Applies this function to the given argument.
      *
      * @param t the function argument
      * @return the function result
      */
-    R apply(T t) throws Exception;
+    R exApply(T t) throws Exception;
 
     @Override
-    default Function<T, R> toJava() {
-        return t -> {
-            try {
-                return apply(t);
-            } catch (Exception e) {
-                throw getException(e);
-            }
-        };
+    default R apply(T t) {
+        try {
+            return exApply(t);
+        } catch (Exception e) {
+            throw getException(e);
+        }
     }
+
 }

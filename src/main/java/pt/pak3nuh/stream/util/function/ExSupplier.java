@@ -8,22 +8,20 @@ import java.util.function.Supplier;
  * @see java.util.function.Supplier
  */
 @FunctionalInterface
-public interface ExSupplier<T> extends InterfaceAdapter<Supplier<T>> {
+public interface ExSupplier<T> extends Supplier<T>, ExceptionalFunction {
     /**
      * Gets a result.
      *
      * @return a result
      */
-    T get() throws Exception;
+    T exGet() throws Exception;
 
     @Override
-    default Supplier<T> toJava() {
-        return () -> {
-            try {
-                return get();
-            } catch (Exception e) {
-                throw getException(e);
-            }
-        };
+    default T get() {
+        try {
+            return exGet();
+        } catch (Exception e) {
+            throw getException(e);
+        }
     }
 }

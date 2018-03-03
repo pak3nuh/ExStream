@@ -8,22 +8,21 @@ import java.util.function.Consumer;
  * @see java.util.function.Consumer
  */
 @FunctionalInterface
-public interface ExConsumer<T> extends InterfaceAdapter<Consumer<T>> {
+public interface ExConsumer<T> extends Consumer<T>, ExceptionalFunction {
     /**
      * Performs this operation on the given argument.
      *
      * @param t the input argument
      */
-    void accept(T t) throws Exception;
+    void exAccept(T t) throws Exception;
 
     @Override
-    default Consumer<T> toJava() {
-        return t -> {
-            try {
-                accept(t);
-            } catch (Exception e) {
-                throw getException(e);
-            }
-        };
+    default void accept(T t) {
+        try {
+            exAccept(t);
+        } catch (Exception e) {
+            throw getException(e);
+        }
     }
+
 }

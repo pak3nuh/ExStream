@@ -18,12 +18,12 @@ final class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
 
     @Override
     public ExStream<T> exFilter(ExPredicate<T> predicate) {
-        return new ExStreamImpl<>(getDelegate().filter(predicate.toJava()));
+        return new ExStreamImpl<>(getDelegate().filter(predicate));
     }
 
     @Override
     public <R> ExStream<R> exMap(ExFunction<T,R> mapper) {
-        return new ExStreamImpl<>(getDelegate().map(mapper.toJava()));
+        return new ExStreamImpl<>(getDelegate().map(mapper));
     }
 
     @Override
@@ -33,17 +33,17 @@ final class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
 
     @Override
     public <R> ExStream<R> exFlatMap(ExFunction<? super T, ? extends Stream<? extends R>> mapper) {
-        return new ExStreamImpl<>(getDelegate().flatMap(mapper.toJava()));
+        return new ExStreamImpl<>(getDelegate().flatMap(mapper));
     }
 
     @Override
     public void exForEach(ExConsumer<? super T> action) throws ExStreamException{
-        terminal(() -> getDelegate().forEach(action.toJava()));
+        terminal(() -> getDelegate().forEach(action));
     }
 
     @Override
     public ExStream<T> exPeek(ExConsumer<? super T> action) {
-        return new ExStreamImpl<>(getDelegate().peek(action.toJava()));
+        return new ExStreamImpl<>(getDelegate().peek(action));
     }
 
     @Override
@@ -63,12 +63,12 @@ final class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
 
     @Override
     public boolean exAnyMatch(ExPredicate<? super T> predicate) throws ExStreamException {
-        return terminal(() -> getDelegate().anyMatch(predicate.toJava()));
+        return terminal(() -> getDelegate().anyMatch(predicate));
     }
 
     @Override
     public boolean exAllMatch(ExPredicate<? super T> predicate) throws ExStreamException {
-        return terminal(() -> getDelegate().allMatch(predicate.toJava()));
+        return terminal(() -> getDelegate().allMatch(predicate));
     }
 
     @Override
@@ -78,7 +78,7 @@ final class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
 
     @Override
     public Optional<T> exReduce(ExBinaryOperator<T> accumulator) throws ExStreamException {
-        return terminal(() -> getDelegate().reduce(accumulator.toJava()));
+        return terminal(() -> getDelegate().reduce(accumulator));
     }
 
     private static <T> T terminal(Supplier<T> supplier) throws ExStreamException {

@@ -8,7 +8,7 @@ import java.util.function.Predicate;
  * @see java.util.function.Predicate
  */
 @FunctionalInterface
-public interface ExPredicate<T> extends InterfaceAdapter<Predicate<T>> {
+public interface ExPredicate<T> extends Predicate<T>, ExceptionalFunction {
     /**
      * Evaluates this predicate on the given argument.
      *
@@ -16,16 +16,14 @@ public interface ExPredicate<T> extends InterfaceAdapter<Predicate<T>> {
      * @return {@code true} if the input argument matches the predicate,
      * otherwise {@code false}
      */
-    boolean test(T t) throws Exception;
+    boolean exTest(T t) throws Exception;
 
     @Override
-    default Predicate<T> toJava() {
-        return t -> {
-            try {
-                return test(t);
-            } catch (Exception e) {
-                throw getException(e);
-            }
-        };
+    default boolean test(T t) {
+        try {
+            return exTest(t);
+        } catch (Exception e) {
+            throw getException(e);
+        }
     }
 }
