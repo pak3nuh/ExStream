@@ -11,14 +11,31 @@
 
     <inceptionYear>2017</inceptionYear>
     <url>https://github.com/pak3nuh/ExStream</url>
-
     <description>Wrapper for Stream interface that can handle throwing code</description>
+
     <developers>
         <developer>
             <name>pak3nuh</name>
             <email>nuno.pik@gmail.com</email>
         </developer>
     </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <scm>
+        <connection>scm:git:git://github.com/pak3nuh/ExStream.git</connection>
+        <url>https://github.com/pak3nuh/ExStream</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
     <build>
         <plugins>
             <plugin>
