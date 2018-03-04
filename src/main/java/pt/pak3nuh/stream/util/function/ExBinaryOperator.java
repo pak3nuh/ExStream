@@ -24,7 +24,7 @@ public interface ExBinaryOperator<T> extends BinaryOperator<T>, ExceptionalFunct
         try {
             return exApply(t1, t2);
         } catch (Exception e) {
-            throw getException(e);
+            throw wrapException(e);
         }
     }
 }

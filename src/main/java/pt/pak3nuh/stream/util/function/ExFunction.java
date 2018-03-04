@@ -24,7 +24,7 @@ public interface ExFunction<T,R> extends Function<T,R>, ExceptionalFunction {
         try {
             return exApply(t);
         } catch (Exception e) {
-            throw getException(e);
+            throw wrapException(e);
         }
     }
 

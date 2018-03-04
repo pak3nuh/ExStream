@@ -12,7 +12,7 @@ public interface ExceptionalFunction {
      * @param cause the checked exception to wrap
      * @return the wrapper exception
      */
-    default ExStreamRuntimeException getException(Exception cause) {
+    default ExStreamRuntimeException wrapException(Exception cause) {
         return new ExStreamRuntimeException(cause);
     }
 }

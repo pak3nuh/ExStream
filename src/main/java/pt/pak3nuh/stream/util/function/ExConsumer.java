@@ -22,7 +22,7 @@ public interface ExConsumer<T> extends Consumer<T>, ExceptionalFunction {
         try {
             exAccept(t);
         } catch (Exception e) {
-            throw getException(e);
+            throw wrapException(e);
         }
     }
 

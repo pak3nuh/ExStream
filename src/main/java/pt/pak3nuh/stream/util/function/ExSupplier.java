@@ -22,7 +22,7 @@ public interface ExSupplier<T> extends Supplier<T>, ExceptionalFunction {
         try {
             return exGet();
         } catch (Exception e) {
-            throw getException(e);
+            throw wrapException(e);
         }
     }
 }

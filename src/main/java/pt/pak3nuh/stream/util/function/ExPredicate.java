@@ -24,7 +24,7 @@ public interface ExPredicate<T> extends Predicate<T>, ExceptionalFunction {
         try {
             return exTest(t);
         } catch (Exception e) {
-            throw getException(e);
+            throw wrapException(e);
         }
     }
 }
