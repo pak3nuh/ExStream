@@ -13,6 +13,7 @@ public interface ExSupplier<T> extends Supplier<T>, ExceptionalFunction {
      * Gets a result.
      *
      * @return a result
+     * @throws Exception if the function cannot complete
      */
     T exGet() throws Exception;
 

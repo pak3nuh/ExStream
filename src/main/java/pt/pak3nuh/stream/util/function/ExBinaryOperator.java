@@ -15,6 +15,7 @@ public interface ExBinaryOperator<T> extends BinaryOperator<T>, ExceptionalFunct
      * @param t1 the first function argument
      * @param t2 the second function argument
      * @return the function result
+     * @throws Exception if the function cannot complete
      */
     T exApply(T t1, T t2) throws Exception;
 

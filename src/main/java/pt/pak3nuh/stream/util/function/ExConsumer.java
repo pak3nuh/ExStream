@@ -13,6 +13,7 @@ public interface ExConsumer<T> extends Consumer<T>, ExceptionalFunction {
      * Performs this operation on the given argument.
      *
      * @param t the input argument
+     * @throws Exception if the function cannot complete
      */
     void exAccept(T t) throws Exception;
 

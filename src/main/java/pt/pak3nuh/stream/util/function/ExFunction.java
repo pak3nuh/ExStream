@@ -15,6 +15,7 @@ public interface ExFunction<T,R> extends Function<T,R>, ExceptionalFunction {
      *
      * @param t the function argument
      * @return the function result
+     * @throws Exception if the function cannot complete
      */
     R exApply(T t) throws Exception;
 

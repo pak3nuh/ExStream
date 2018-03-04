@@ -4,7 +4,7 @@ import java.util.stream.Stream;
 
 /**
  * Main entry point for creating {@link ExStream} instances.
- * <br/>
+ * <br>
  * Also contains some convenience methods for stream creation.
  */
 public final class ExStreamBuilder {

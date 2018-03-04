@@ -15,6 +15,7 @@ public interface ExPredicate<T> extends Predicate<T>, ExceptionalFunction {
      * @param t the input argument
      * @return {@code true} if the input argument matches the predicate,
      * otherwise {@code false}
+     * @throws Exception if the function cannot complete
      */
     boolean exTest(T t) throws Exception;
 
