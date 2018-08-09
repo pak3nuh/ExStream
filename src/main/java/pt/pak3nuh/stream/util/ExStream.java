@@ -1,10 +1,6 @@
 package pt.pak3nuh.stream.util;
 
-import pt.pak3nuh.stream.util.function.ExBinaryOperator;
-import pt.pak3nuh.stream.util.function.ExConsumer;
-import pt.pak3nuh.stream.util.function.ExFunction;
-import pt.pak3nuh.stream.util.function.ExPredicate;
-
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
@@ -12,6 +8,12 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
+
+import pt.pak3nuh.stream.util.function.ExBinaryOperator;
+import pt.pak3nuh.stream.util.function.ExComparator;
+import pt.pak3nuh.stream.util.function.ExConsumer;
+import pt.pak3nuh.stream.util.function.ExFunction;
+import pt.pak3nuh.stream.util.function.ExPredicate;
 
 /**
  * A wrapper interface for {@link Stream} that can accept intermediate functions that throw exceptions.
@@ -152,6 +154,16 @@ public interface ExStream<T> {
      * @throws ExStreamException if some exception was thrown during stream processing
      */
     Optional<T> exReduce(ExBinaryOperator<T> accumulator) throws ExStreamException;
+
+    /**
+     * Sort with exception
+     * @see Stream#sorted(Comparator)
+     * @param comparator a <a href="package-summary.html#NonInterference">non-interfering</a>,
+     *                   <a href="package-summary.html#Statelessness">stateless</a>
+     *                   {@code Comparator} to be used to compare stream elements
+     * @return the new stream
+     */
+    ExStream<T> sorted(ExComparator<? super T> comparator);
 
     /**
      * Returns the current instance as plain {@link Stream}.

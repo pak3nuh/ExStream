@@ -1,6 +1,7 @@
 package pt.pak3nuh.stream.util;
 
 import pt.pak3nuh.stream.util.function.ExBinaryOperator;
+import pt.pak3nuh.stream.util.function.ExComparator;
 import pt.pak3nuh.stream.util.function.ExConsumer;
 import pt.pak3nuh.stream.util.function.ExFunction;
 import pt.pak3nuh.stream.util.function.ExPredicate;
@@ -79,6 +80,11 @@ final class ExStreamImpl<T> extends ExStreamBase<T> implements ExStream<T> {
     @Override
     public Optional<T> exReduce(ExBinaryOperator<T> accumulator) throws ExStreamException {
         return terminal(() -> getDelegate().reduce(accumulator));
+    }
+
+    @Override
+    public ExStream<T> sorted(ExComparator<? super T> comparator) {
+        return new ExStreamImpl<>(getDelegate().sorted(comparator));
     }
 
     private static <T> T terminal(Supplier<T> supplier) throws ExStreamException {
