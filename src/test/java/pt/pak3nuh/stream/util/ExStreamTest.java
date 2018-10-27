@@ -76,4 +76,15 @@ public class ExStreamTest {
     }
 
     private <T> T identity(T t){return t;}
+
+    private <T> T throwingMap(T it) throws Exception {
+        throw new Exception();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void customException() {
+        ExStreamBuilder.of(IllegalArgumentException::new, 1,2,3)
+                .exMap(this::throwingMap)
+                .exFindFirst();
+    }
 }

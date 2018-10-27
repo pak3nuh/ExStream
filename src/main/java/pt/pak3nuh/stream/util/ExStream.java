@@ -1,5 +1,7 @@
 package pt.pak3nuh.stream.util;
 
+import pt.pak3nuh.stream.util.function.*;
+
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.BinaryOperator;
@@ -9,19 +11,14 @@ import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 
-import pt.pak3nuh.stream.util.function.ExBinaryOperator;
-import pt.pak3nuh.stream.util.function.ExComparator;
-import pt.pak3nuh.stream.util.function.ExConsumer;
-import pt.pak3nuh.stream.util.function.ExFunction;
-import pt.pak3nuh.stream.util.function.ExPredicate;
-
 /**
  * A wrapper interface for {@link Stream} that can accept intermediate functions that throw exceptions.
  * <br>
  * This interface holds some of the stream methods and will be added more in time.
  * @param <T> the type of the stream elements
+ * @param <E> terminal operation exception type
  */
-public interface ExStream<T> {
+public interface ExStream<T,E extends Exception> {
 
     /**
      * Filter with exception
@@ -32,7 +29,7 @@ public interface ExStream<T> {
      * @see Stream#filter(Predicate)
      * @return the new stream
      */
-    ExStream<T> exFilter(ExPredicate<T> predicate);
+    ExStream<T,E> exFilter(ExPredicate<T> predicate);
 
     /**
      * Map with exception
@@ -43,7 +40,7 @@ public interface ExStream<T> {
      * @see Stream#map(Function)
      * @return the new stream
      */
-    <R> ExStream<R> exMap(ExFunction<T,R> mapper);
+    <R> ExStream<R,E> exMap(ExFunction<T,R> mapper);
 
     /**
      * Collect with exception
@@ -52,9 +49,9 @@ public interface ExStream<T> {
      * @param collector the {@code Collector} describing the reduction
      * @see Stream#collect(Collector)
      * @return the new stream
-     * @throws ExStreamException if some exception was thrown during stream processing
+     * @throws E if some exception was thrown during stream processing
      */
-    <R, A> R exCollect(Collector<? super T, A, R> collector) throws ExStreamException;
+    <R, A> R exCollect(Collector<? super T, A, R> collector) throws E;
 
     /**
      * Flatmap with exception
@@ -66,16 +63,16 @@ public interface ExStream<T> {
      * @return the new stream
      * @see Stream#flatMap(Function)
      */
-    <R> ExStream<R> exFlatMap(ExFunction<? super T, ? extends Stream<? extends R>> mapper);
+    <R> ExStream<R,E> exFlatMap(ExFunction<? super T, ? extends Stream<? extends R>> mapper);
 
     /**
      * ForEach with exception
      * @param action a <a href="package-summary.html#NonInterference">
      *               non-interfering</a> action to perform on the elements
      * @see Stream#forEach(Consumer)
-     * @throws ExStreamException if some exception was thrown during stream processing
+     * @throws E if some exception was thrown during stream processing
      */
-    void exForEach(ExConsumer<? super T> action) throws ExStreamException;
+    void exForEach(ExConsumer<? super T> action) throws E;
 
     /**
      * Peek with exception
@@ -85,7 +82,7 @@ public interface ExStream<T> {
      * @return the new stream
      * @see Stream#peek(Consumer)
      */
-    ExStream<T> exPeek(ExConsumer<? super T> action);
+    ExStream<T,E> exPeek(ExConsumer<? super T> action);
 
     /**
      * Limit with exception
@@ -93,7 +90,7 @@ public interface ExStream<T> {
      * @return the new stream
      * @see Stream#limit(long)
      */
-    ExStream<T> exLimit(long maxSize);
+    ExStream<T,E> exLimit(long maxSize);
 
     /**
      * Skip with exception
@@ -101,15 +98,15 @@ public interface ExStream<T> {
      * @return the new stream
      * @see Stream#skip(long)
      */
-    ExStream<T> exSkip(long n);
+    ExStream<T,E> exSkip(long n);
 
     /**
      * Count with exception
      * @return the count of elements in this stream
      * @see Stream#count()
-     * @throws ExStreamException if some exception was thrown during stream processing
+     * @throws E if some exception was thrown during stream processing
      */
-    long exCount() throws ExStreamException;
+    long exCount() throws E;
 
     /**
      * AnyMatch with exception
@@ -118,9 +115,9 @@ public interface ExStream<T> {
      *                  predicate to apply to elements of this stream
      * @return {@code true} if any elements of the stream match the provided
      * @see Stream#anyMatch(Predicate)
-     * @throws ExStreamException if some exception was thrown during stream processing
+     * @throws E if some exception was thrown during stream processing
      */
-    boolean exAnyMatch(ExPredicate<? super T> predicate) throws ExStreamException;
+    boolean exAnyMatch(ExPredicate<? super T> predicate) throws E;
 
     /**
      * AllMatch with exception
@@ -130,18 +127,18 @@ public interface ExStream<T> {
      * @return {@code true} if either all elements of the stream match the
      * provided predicate or the stream is empty, otherwise {@code false}
      * @see Stream#allMatch(Predicate)
-     * @throws ExStreamException if some exception was thrown during stream processing
+     * @throws E if some exception was thrown during stream processing
      */
-    boolean exAllMatch(ExPredicate<? super T> predicate) throws ExStreamException;
+    boolean exAllMatch(ExPredicate<? super T> predicate) throws E;
 
     /**
      * FindFirst with exception
      * @return an {@code Optional} describing the first element of this stream,
      * or an empty {@code Optional} if the stream is empty
      * @see Stream#findFirst()
-     * @throws ExStreamException if some exception was thrown during stream processing
+     * @throws E if some exception was thrown during stream processing
      */
-    Optional<T> exFindFirst() throws ExStreamException;
+    Optional<T> exFindFirst() throws E;
 
     /**
      * Reduce with exception
@@ -151,9 +148,9 @@ public interface ExStream<T> {
      *                    function for combining two values
      * @return an {@link Optional} describing the result of the reduction
      * @see Stream#reduce(BinaryOperator)
-     * @throws ExStreamException if some exception was thrown during stream processing
+     * @throws E if some exception was thrown during stream processing
      */
-    Optional<T> exReduce(ExBinaryOperator<T> accumulator) throws ExStreamException;
+    Optional<T> exReduce(ExBinaryOperator<T> accumulator) throws E;
 
     /**
      * Sort with exception
@@ -163,7 +160,7 @@ public interface ExStream<T> {
      *                   {@code Comparator} to be used to compare stream elements
      * @return the new stream
      */
-    ExStream<T> sorted(ExComparator<? super T> comparator);
+    ExStream<T,E> sorted(ExComparator<? super T> comparator);
 
     /**
      * Returns the current instance as plain {@link Stream}.
