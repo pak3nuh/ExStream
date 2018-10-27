@@ -6,7 +6,7 @@
     <groupId>io.github.pak3nuh.util</groupId>
     <artifactId>exstream</artifactId>
     <name>Exceptional Streams</name>
-    <version>0.9.5-SNAPSHOT</version>
+    <version>0.9.5</version>
     <packaging>jar</packaging>
 
     <inceptionYear>2017</inceptionYear>
